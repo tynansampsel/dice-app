@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/dice-app/static/css/main.85462972.css",
+    "main.js": "/dice-app/static/js/main.ecb4ae47.js",
+    "static/media/d20.png": "/dice-app/static/media/d20.c37c0886fbe60465ec4a.png",
+    "static/media/d8.png": "/dice-app/static/media/d8.bbb382ffb88785618626.png",
+    "static/media/d12.png": "/dice-app/static/media/d12.070d6e6b2ec92862412b.png",
+    "static/media/d10.png": "/dice-app/static/media/d10.2b9967b538218bac08e3.png",
+    "index.html": "/dice-app/index.html",
+    "main.85462972.css.map": "/dice-app/static/css/main.85462972.css.map",
+    "main.ecb4ae47.js.map": "/dice-app/static/js/main.ecb4ae47.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.85462972.css",
+    "static/js/main.ecb4ae47.js"
+  ]
+}
