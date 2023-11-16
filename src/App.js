@@ -15,6 +15,8 @@ function App() {
     const [bag, setBag] = useState([]);
 
     const addDieToBag = (dieType) => {
+        if(bagLimitReached()) return;
+
         console.log(`added d${dieType}`)
 
         const newDie = {
@@ -44,6 +46,8 @@ function App() {
     }
 
     const rollDice = () => {
+        if(!diceInBag()) return;
+
         console.log("rolled!")
 
         const rolledDice = bag.map(die => {
@@ -56,6 +60,37 @@ function App() {
         setRolled([rolledDice, ...rolled]);
     }
 
+    const reRollDice = (dieId) => {
+        if(rolled.length < 1){return}
+
+        console.log("rolled!")
+
+        let oldRolledDiceSets = [];
+        if(rolled.length > 1){
+            oldRolledDiceSets = rolled.slice(1);
+        }
+        
+
+        const rolledDice = rolled[0].map((die, i) => {
+            if(dieId === i){
+                return {
+                    dieType: die.dieType,
+                    roll: getRandomNumber(die.dieType)
+                }
+            } else {
+                return die;
+            }
+        })
+        oldRolledDiceSets.unshift(rolledDice);
+
+        setRolled(oldRolledDiceSets);
+    }
+
+    const clearField = () => {
+        if(!diceOnField()) return;
+
+        setRolled([]);
+    }
 
     const emptyBag = () => {
         setBag([]);
@@ -66,6 +101,17 @@ function App() {
 
         const newBag = bag.filter((die, i) => i != dieId);
         setBag(newBag);
+    }
+
+    const bagLimitReached = () => {
+        return bag.length >= 5;
+    }
+    
+    const diceOnField = () => {
+        return rolled.length > 0
+    }
+    const diceInBag = () => {
+        return bag.length > 0
     }
 
     return (
@@ -80,7 +126,7 @@ function App() {
             <div className="diceContainer">
                 {
                     rolled.length > 0 ? rolled[0].map((die, i) => {
-                        return <Die key={i} dieType={die.dieType} roll={die.roll} />
+                        return <Die key={i} dieType={die.dieType} roll={die.roll} id={i} reRollDice={reRollDice} />
                     }) : ""
                 }
             </div>
@@ -90,30 +136,37 @@ function App() {
                         return <DieInBag key={i} dieType={die.dieType} id={i} removeDieFromBag={removeDieFromBag} />
                     })
                 }
+                {
+                    diceInBag() ? 
+                    <div className={`button_emptyBag`} onClick={emptyBag}>
+                        <h2>X</h2>
+                    </div> 
+                    : <></>
+                }
             </div>
             <div className="buttonContainer">
                 <div className="diceButtonsContainer">
-                    <div className="button_addD4" onClick={() => addDieToBag(4)}>
+                    <div className={`button_addD4 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(4)}>
                     </div>
-                    <div className="button_addD6" onClick={() => addDieToBag(6)}>
+                    <div className={`button_addD6 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(6)}>
                     </div>
-                    <div className="button_addD8" onClick={() => addDieToBag(8)}>
+                    <div className={`button_addD8 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(8)}>
                     </div>
-                    <div className="button_addD10" onClick={() => addDieToBag(10)}>
+                    <div className={`button_addD10 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(10)}>
                     </div>
-                    <div className="button_addD100" onClick={() => addDieToBag(100)}><h2>%</h2>
+                    <div className={`button_addD100 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(100)}><h2>%</h2>
                     </div>
-                    <div className="button_addD12" onClick={() => addDieToBag(12)}>
+                    <div className={`button_addD12 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(12)}>
                     </div>
-                    <div className="button_addD20" onClick={() => addDieToBag(20)}>
+                    <div className={`button_addD20 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(20)}>
                     </div>
                 </div>
                 <div className="optionButtonsContainer">
-                    <div className="button_roll" onClick={rollDice}>
+                    <div className={`button_roll ${!diceInBag() ? "button_disabled" : ""}`} onClick={rollDice}>
                         <h2>Roll!</h2>
                     </div>
-                    <div className="button_emptyBag" onClick={emptyBag}>
-                        <h2>Empty</h2>
+                    <div className={`button_emptyField ${!diceOnField() ? "button_disabled" : ""}`} onClick={clearField}>
+                        <h2>Clear</h2>
                     </div>
                 </div>
             </div>

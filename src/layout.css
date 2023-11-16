@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   align-items: flex-end;
   height: 100vh; /* Adjust height as needed */
+  user-select: none;
 }
 
 .bagContainer, .previousDiceContainer {
@@ -31,9 +32,10 @@ body {
   height: 100%; /* Adjust height as needed */
   width: 90%;
   flex-wrap: wrap;
+  align-items: center;
   padding-left: 5%;
   padding-right: 5%;
-
+  gap: 0px 10px;
 }
 
 .optionButtonsContainer {
@@ -60,6 +62,7 @@ body {
   height: 100px;
   width: 100px;
   margin: 5px; /* Adjust margin as needed */
+  cursor: pointer;
 }
 
 .DieInBag, .mini {
@@ -70,13 +73,10 @@ body {
 
 
 .button_roll,
-.button_emptyBag {
+.button_emptyField {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  color: white;
-  border: 2px solid white;
   border-radius: 5px;
   cursor: pointer;
   margin: 0;
@@ -84,6 +84,23 @@ body {
   width: 100%;
   box-sizing: border-box;
   padding: 10px; /* Add padding */
+}
+
+
+.button_emptyBag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin: 0;
+  margin-left: auto;
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  box-sizing: border-box;
+  padding: 10px; /* Add padding */
+  cursor: pointer;
+
 }
 
 
@@ -102,13 +119,8 @@ body {
 }
 
 .button_roll h2,
-.button_emptyBag h2 {
+.button_emptyField h2 {
   margin: 0;
-}
-
-.button_roll,
-.button_emptyBag {
-
 }
 
 h1 {
