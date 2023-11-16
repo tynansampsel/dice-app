@@ -1,0 +1,101 @@
+body {
+  background-color: green;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.diceContainer,
+.bagContainer,
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  height: 10vh; /* Adjust height as needed */
+}
+
+.diceContainer{
+  height: 80vh; /* Adjust height as needed */
+}
+
+.Die,
+.DieInBag {
+  position: relative;
+  background: url('img/d8.png') center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d4 {
+  background: url('img/d4.png') center/cover;
+}
+.d6 {
+  background: url('img/d6.png') center/cover;
+}
+.d8 {
+  background: url('img/d8.png') center/cover;
+}
+.d10 {
+  background: url('img/d10.png') center/cover;
+}
+.d100 {
+  background: url('img/d10.png') center/cover;
+}
+.d12 {
+  background: url('img/d12.png') center/cover;
+}
+.d20 {
+  background: url('img/d20.png') center/cover;
+}
+
+.Die {
+  height: 200px;
+  width: 200px;
+}
+
+.DieInBag {
+  height: 50px;
+  width: 50px;
+}
+
+.button_addD4,
+.button_addD6,
+.button_addD8,
+.button_addD10,
+.button_addD100,
+.button_addD12,
+.button_addD20,
+.button_roll,
+.button_emptyBag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px; /* Adjust margin as needed */
+}
+
+.button_addD8 {
+  background-color: rgb(0, 81, 128); /* Override background color for button_addD8 */
+}
+
+.button_addD8 h2,
+.button_roll h2,
+.button_emptyBag h2 {
+  margin: 0; /* Remove default margin on h2 */
+}
+
+h1 {
+  text-align: center;
+  color: rgb(0, 0, 0);
+  font-size: 2em;
+  margin: 0; /* Remove default margin to ensure text is centered within the container */
+}

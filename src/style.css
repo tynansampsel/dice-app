@@ -1,0 +1,33 @@
+body {
+  background-color: green;
+}
+
+
+.bagdiceContainerContainer {
+  background-color: green;
+}
+
+.bagContainer {
+
+}
+.buttonContainer {
+  background-color: #005800
+}
+
+
+.mini {
+  opacity: 0.75;
+}
+
+h1 {
+  color: rgb(0, 0, 0);
+  text-shadow: 0px 0px 8px #FFFFFF, 0px 0px 8px #FFFFFF, 0px 0px 8px #FFFFFF, 0px 0px 8px #FFFFFF, 0px 0px 8px #FFFFFF, 0px 0px 8px #FFFFFF;
+}
+
+.highest {
+  color: greenyellow;
+}
+
+.lowest {
+  color: red;
+}

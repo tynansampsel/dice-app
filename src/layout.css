@@ -1,0 +1,126 @@
+body {
+  margin: 0; /* Remove default margin on body */
+  overflow: none; /* Enable scrolling if needed */
+
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100vh; /* Adjust height as needed */
+}
+
+.bagContainer, .previousDiceContainer {
+  display: flex;
+  height:60px; /* Fixed height for bagContainer */
+  width: 100%;
+  flex-direction: row;
+
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  height: 200px; /* Calculate height for buttonContainer */
+  width: 100%;
+}
+
+.diceContainer {
+  display: flex;
+  height: 100%; /* Adjust height as needed */
+  width: 90%;
+  flex-wrap: wrap;
+  padding-left: 5%;
+  padding-right: 5%;
+
+}
+
+.optionButtonsContainer,
+.diceButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Each container takes up the full width initially */
+}
+
+.optionButtonsContainer {
+  width: 30%; /* Adjust width for optionButtonsContainer */
+  gap: 10px; /* Add gap between flex items */
+  padding: 10px;
+}
+
+.diceButtonsContainer {
+  width: 70%; /* Adjust width for diceButtonsContainer */
+  padding: 10px;
+
+}
+
+.Die,
+.DieInBag {
+  position: relative;
+  background: url('img/d8.png') center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  margin: 5px; /* Adjust margin as needed */
+}
+
+.DieInBag, .mini {
+  height: 50px;
+  width: 50px;
+}
+
+
+
+.button_roll,
+.button_emptyBag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px; /* Add padding */
+}
+
+
+
+.button_addD4,
+.button_addD6,
+.button_addD8,
+.button_addD10,
+.button_addD100,
+.button_addD12,
+.button_addD20 {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button_roll h2,
+.button_emptyBag h2 {
+  margin: 0;
+}
+
+.button_roll,
+.button_emptyBag {
+
+}
+
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin: 0;
+}
+.mini h1 {
+  font-size: 1em;
+}

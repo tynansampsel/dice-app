@@ -1,0 +1,33 @@
+.Die {
+    position: relative;
+    background: url('img/d8.png') center/cover;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    /* Center vertically */
+    align-items: center;
+    /* Center horizontally */
+}
+
+.DieInBag {
+    position: relative;
+    background: url('img/d8.png') center/cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 50px;
+    width: 50px;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 2em;
+    margin: 0;
+    /* Remove default margin to ensure text is centered within the container */
+}
