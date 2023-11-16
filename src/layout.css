@@ -36,23 +36,18 @@ body {
 
 }
 
-.optionButtonsContainer,
-.diceButtonsContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 100%; /* Each container takes up the full width initially */
-}
-
 .optionButtonsContainer {
+  display: flex;
   width: 30%; /* Adjust width for optionButtonsContainer */
   gap: 10px; /* Add gap between flex items */
   padding: 10px;
 }
 
 .diceButtonsContainer {
+  display: flex;
   width: 70%; /* Adjust width for diceButtonsContainer */
   padding: 10px;
-
+  justify-content:flex-start;
 }
 
 .Die,
@@ -123,4 +118,15 @@ h1 {
 }
 .mini h1 {
   font-size: 1em;
+}
+
+
+@media (max-width: 768px) {
+  .diceButtonsContainer {
+    flex-wrap: wrap;
+  }
+  .optionButtonsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
 }
