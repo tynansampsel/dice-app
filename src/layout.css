@@ -118,6 +118,13 @@ body {
   margin: 5px;
 }
 
+.button_addD100 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .button_roll h2,
 .button_emptyField h2 {
   margin: 0;

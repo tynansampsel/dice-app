@@ -34,7 +34,7 @@ function App() {
             isd100 = true;
         }
 
-        let roll = Math.round(Math.random() * dieType);
+        let roll = Math.ceil(Math.random() * dieType);
         let faceShowing = "";
 
         if(dieType === 10 && roll === 10){ roll = "0" }
@@ -163,7 +163,7 @@ function App() {
                 </div>
                 <div className="optionButtonsContainer">
                     <div className={`button_roll ${!diceInBag() ? "button_disabled" : ""}`} onClick={rollDice}>
-                        <h2>Roll!</h2>
+                        <h2>Roll</h2>
                     </div>
                     <div className={`button_emptyField ${!diceOnField() ? "button_disabled" : ""}`} onClick={clearField}>
                         <h2>Clear</h2>
