@@ -1,21 +1,20 @@
-import './layout.css';
-import './style.css';
-import './dice.css';
-import { useState, useEffect, useLayoutEffect } from "react";
+import './css/layout.css';
+import './css/style.css';
+import './css/dice.css';
+import { useState} from "react";
 import Die from './Die';
-import DieInBag from './DieInBag';
-
-var genericDie = {
-    dieType: 8,
-    roll: 5
-}
+import DieInSelectedDice from './DieInSelectedDice';
 
 function App() {
-    const [rolled, setRolled] = useState([]);
-    const [bag, setBag] = useState([]);
+    //these are the dice that have been rolled and are on the field.
+    const [rolledDice, setRolledDice] = useState([]);
 
-    const addDieToBag = (dieType) => {
-        if(bagLimitReached()) return;
+    //these are the dice that are selected but have not yet been rolled.
+    const [selectedDice, SetSelectedDice] = useState([]);
+
+
+    const addDieToSelectedDice = (dieType) => {
+        if(SelectedDiceLimitReached()) return;
 
         console.log(`added d${dieType}`)
 
@@ -23,9 +22,11 @@ function App() {
             dieType: dieType,
             roll: dieType
         }
-        setBag([...bag, newDie])
+        SetSelectedDice([...selectedDice, newDie])
     }
 
+    //this takes a dieType (4,6,8,10,100/%,12,20) and returns a random number.
+    //d100/d% are dice that have 10 faces from 00-90 to represent the tens place.
     const getRandomNumber = (dieType) => {
 
         let isd100;
@@ -45,33 +46,37 @@ function App() {
         return faceShowing;
     }
 
+    //this is called by the Roll dice button and rolls all the dice in the selectedDice array 
+    //and copys the rolled dice into the rolledDice array.
     const rollDice = () => {
-        if(!diceInBag()) return;
+        if(!DiceAreSelected()) return;
 
-        console.log("rolled!")
+        console.log("rolledDice!")
 
-        const rolledDice = bag.map(die => {
+        const newRolledDice = selectedDice.map(die => {
             return {
                 dieType: die.dieType,
                 roll: getRandomNumber(die.dieType)
             }
         })
 
-        setRolled([rolledDice, ...rolled]);
+        setRolledDice([newRolledDice, ...rolledDice]);
     }
 
+    //this is called when the user clicks a dice that has already been rolled
+    //and rerolls that dice.
     const reRollDice = (dieId) => {
-        if(rolled.length < 1){return}
+        if(rolledDice.length < 1){return}
 
-        console.log("rolled!")
 
         let oldRolledDiceSets = [];
-        if(rolled.length > 1){
-            oldRolledDiceSets = rolled.slice(1);
+
+        if(rolledDice.length > 1){
+            oldRolledDiceSets = rolledDice.slice(1);
         }
         
 
-        const rolledDice = rolled[0].map((die, i) => {
+        const newRolledDice = rolledDice[0].map((die, i) => {
             if(dieId === i){
                 return {
                     dieType: die.dieType,
@@ -81,91 +86,104 @@ function App() {
                 return die;
             }
         })
-        oldRolledDiceSets.unshift(rolledDice);
+        oldRolledDiceSets.unshift(newRolledDice);
 
-        setRolled(oldRolledDiceSets);
+        setRolledDice(oldRolledDiceSets);
     }
 
-    const clearField = () => {
-        if(!diceOnField()) return;
-
-        setRolled([]);
+    const emptyRolledDice = () => {
+        setRolledDice([]);
     }
 
-    const emptyBag = () => {
-        setBag([]);
+    const emptySelectedDice = () => {
+        SetSelectedDice([]);
     }
 
-    const removeDieFromBag = (dieId) => {
-        console.log("clicked!")
-
-        const newBag = bag.filter((die, i) => i != dieId);
-        setBag(newBag);
+    //this is called when a selected die is clicked. it removes the die from the selectedDice array.
+    const removeDieFromSelectedDice = (dieId) => {
+        const newSelectedDice = selectedDice.filter((die, i) => i != dieId);
+        SetSelectedDice(newSelectedDice);
     }
 
-    const bagLimitReached = () => {
-        return bag.length >= 5;
+
+    const SelectedDiceLimitReached = () => {
+        return selectedDice.length >= 5;
     }
     
     const diceOnField = () => {
-        return rolled.length > 0
+        return rolledDice.length > 0
     }
-    const diceInBag = () => {
-        return bag.length > 0
+    const DiceAreSelected = () => {
+        return selectedDice.length > 0
     }
 
+    
     return (
         <div className="App">
             <div className="previousDiceContainer">
                 {
-                    rolled.length > 1 ? rolled[1].map((die, i) => {
-                        return <Die key={i} dieType={die.dieType} roll={die.roll} mini={true} />
-                    }) : ""
+                    rolledDice.length > 1 && rolledDice[1].map((die, i) => {
+                        return <Die 
+                                    key={i} 
+                                    dieType={die.dieType} 
+                                    roll={die.roll} 
+                                    mini={true} 
+                                />
+                    })
                 }
             </div>
             <div className="diceContainer">
                 {
-                    rolled.length > 0 ? rolled[0].map((die, i) => {
-                        return <Die key={i} dieType={die.dieType} roll={die.roll} id={i} reRollDice={reRollDice} />
-                    }) : ""
+                    rolledDice.length > 0 && rolledDice[0].map((die, i) => {
+                        return <Die 
+                                    key={i} 
+                                    dieType={die.dieType} 
+                                    roll={die.roll} 
+                                    id={i} 
+                                    reRollDice={reRollDice} 
+                                />
+                    })
                 }
             </div>
-            <div className="bagContainer">
+            <div className="SelectedDiceContainer">
                 {
-                    bag.map((die, i) => {
-                        return <DieInBag key={i} dieType={die.dieType} id={i} removeDieFromBag={removeDieFromBag} />
+                    selectedDice.map((die, i) => {
+                        return <DieInSelectedDice 
+                                    key={i} 
+                                    dieType={die.dieType} 
+                                    id={i} 
+                                    removeDieFromSelectedDice={removeDieFromSelectedDice} 
+                                />
                     })
                 }
                 {
-                    diceInBag() ? 
-                    <div className={`button_emptyBag`} onClick={emptyBag}>
+                    DiceAreSelected() &&
+                    <div 
+                        className={`button_emptySelectedDice`} 
+                        onClick={emptySelectedDice}>
                         <h2>X</h2>
-                    </div> 
-                    : <></>
+                    </div>
                 }
             </div>
             <div className="buttonContainer">
                 <div className="diceButtonsContainer">
-                    <div className={`button_addD4 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(4)}>
-                    </div>
-                    <div className={`button_addD6 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(6)}>
-                    </div>
-                    <div className={`button_addD8 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(8)}>
-                    </div>
-                    <div className={`button_addD10 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(10)}>
-                    </div>
-                    <div className={`button_addD100 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(100)}><h2>%</h2>
-                    </div>
-                    <div className={`button_addD12 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(12)}>
-                    </div>
-                    <div className={`button_addD20 ${bagLimitReached() ? "disabled" : ""}`} onClick={() => addDieToBag(20)}>
-                    </div>
+                    <div className={`button_addD4 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(4)}></div>
+                    <div className={`button_addD6 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(6)}></div>
+                    <div className={`button_addD8 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(8)}></div>
+                    <div className={`button_addD10 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(10)}></div>
+                    <div className={`button_addD100 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(100)}><h2>%</h2></div>
+                    <div className={`button_addD12 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(12)}></div>
+                    <div className={`button_addD20 ${SelectedDiceLimitReached() && "disabled"}`} onClick={() => addDieToSelectedDice(20)}></div>
                 </div>
                 <div className="optionButtonsContainer">
-                    <div className={`button_roll ${!diceInBag() ? "button_disabled" : ""}`} onClick={rollDice}>
+                    <div 
+                        className={`button_roll ${!DiceAreSelected() && "button_disabled"}`} 
+                        onClick={rollDice}>
                         <h2>Roll</h2>
                     </div>
-                    <div className={`button_emptyField ${!diceOnField() ? "button_disabled" : ""}`} onClick={clearField}>
+                    <div 
+                        className={`button_emptyField ${!diceOnField() && "button_disabled"}`} 
+                        onClick={emptyRolledDice}>
                         <h2>Clear</h2>
                     </div>
                 </div>

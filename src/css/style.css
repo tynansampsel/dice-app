@@ -3,20 +3,21 @@ body {
 }
 
 
-.bagdiceContainerContainer {
+.SelectedDicediceContainerContainer {
   background-color: green;
 }
 
-.bagContainer {
+.SelectedDiceContainer {
 
 }
+
 .buttonContainer {
   background-color: #005800
 }
 
 .button_roll,
 .button_emptyField,
-.button_emptyBag {
+.button_emptySelectedDice {
   background-color: black;
   color: white;
   border: 2px solid white;

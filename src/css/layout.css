@@ -12,9 +12,9 @@ body {
   user-select: none;
 }
 
-.bagContainer, .previousDiceContainer {
+.SelectedDiceContainer, .previousDiceContainer {
   display: flex;
-  height:60px; /* Fixed height for bagContainer */
+  height:60px; /* Fixed height for SelectedDiceContainer */
   width: 100%;
   flex-direction: row;
 
@@ -53,9 +53,9 @@ body {
 }
 
 .Die,
-.DieInBag {
+.DieInSelectedDice {
   position: relative;
-  background: url('img/d8.png') center/cover;
+  background: url('../img/d8.png') center/cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,7 +65,7 @@ body {
   cursor: pointer;
 }
 
-.DieInBag, .mini {
+.DieInSelectedDice, .mini {
   height: 50px;
   width: 50px;
 }
@@ -87,7 +87,7 @@ body {
 }
 
 
-.button_emptyBag {
+.button_emptySelectedDice {
   display: flex;
   justify-content: center;
   align-items: center;
